@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-[#0c0e14] dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200;
+    min-height: 100vh;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-zinc-800 rounded-full hover:bg-slate-400 dark:hover:bg-zinc-700;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  @apply bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-200/80 dark:border-zinc-800/80;
+}
+
+.glass-dropdown {
+  @apply bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-slate-200 dark:border-zinc-800 shadow-2xl;
+}
+
+/* Glowing Mesh Orbs */
+.mesh-gradient {
+  background-image:
+    radial-gradient(at 10% 20%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.16) 0px, transparent 50%);
+}
+
+.dark .mesh-gradient {
+  background-image:
+    radial-gradient(at 10% 20%, rgba(99, 102, 241, 0.22) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.18) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.2) 0px, transparent 50%);
+}

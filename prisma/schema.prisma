@@ -1,0 +1,145 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(cuid())
+  username      String         @unique
+  email         String         @unique
+  passwordHash  String
+  name          String
+  bio           String?
+  avatarUrl     String?
+  coverUrl      String?
+  website       String?
+  location      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  posts         Post[]
+  likes         Like[]
+  comments      Comment[]
+
+  followers     Follow[]       @relation("Followers")
+  following     Follow[]       @relation("Following")
+
+  notificationsReceived Notification[] @relation("Recipient")
+  notificationsTriggered Notification[] @relation("Actor")
+
+  @@index([username])
+  @@index([email])
+}
+
+model Post {
+  id           String        @id @default(cuid())
+  caption      String?
+  authorId     String
+  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  media        Media[]
+  likes        Like[]
+  comments     Comment[]
+  hashtags     PostHashtag[]
+
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Media {
+  id           String    @id @default(cuid())
+  postId       String
+  post         Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  url          String
+  type         String    // "IMAGE" or "VIDEO"
+  aspectRatio  Float?
+  order        Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  @@index([postId])
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@index([postId])
+  @@index([userId])
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  postId    String
+  userId    String
+  parentId  String?
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([postId])
+  @@index([parentId])
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model Hashtag {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  posts     PostHashtag[]
+  createdAt DateTime      @default(now())
+
+  @@index([name])
+}
+
+model PostHashtag {
+  postId    String
+  hashtagId String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  hashtag   Hashtag  @relation(fields: [hashtagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, hashtagId])
+  @@index([hashtagId])
+  @@index([postId])
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  recipientId String
+  actorId     String
+  type        String   // "LIKE", "COMMENT", "FOLLOW", "MENTION"
+  postId      String?
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  recipient   User     @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actor       User     @relation("Actor", fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId, read])
+  @@index([createdAt])
+}
