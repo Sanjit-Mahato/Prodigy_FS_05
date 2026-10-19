@@ -101,7 +101,7 @@ const COLUMN_3: ReelItem[] = [
     creator: '@alex_r',
     tag: '#brutalism',
     specs: 'ISO 100 • 35mm ƒ/2.8 • 1/800s',
-    src: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
     aspect: 'aspect-[16/10]',
   },
 ];

@@ -38,7 +38,7 @@ const MARQUEE_IMAGES = [
   },
   {
     title: 'Brutalist Angle',
-    src: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=400&q=80',
+    src: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80',
     creator: '@alex_r',
     tag: '#brutalism',
   },

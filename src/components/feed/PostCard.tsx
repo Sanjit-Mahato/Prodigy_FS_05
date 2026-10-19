@@ -25,9 +25,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface PostCardProps {
   post: PostWithDetails;
   onPostDeleted?: (postId: string) => void;
+  initialShowComments?: boolean;
 }
 
-export function PostCard({ post, onPostDeleted }: PostCardProps) {
+export function PostCard({ post, onPostDeleted, initialShowComments = false }: PostCardProps) {
   const { user } = useAuth();
   const [isLiked, setIsLiked] = useState(post.isLiked || false);
   const [likesCount, setLikesCount] = useState(post._count?.likes || 0);
@@ -36,13 +37,28 @@ export function PostCard({ post, onPostDeleted }: PostCardProps) {
   const [isCopied, setIsCopied] = useState(false);
 
   // Comments state
-  const [showComments, setShowComments] = useState(false);
+  const [showComments, setShowComments] = useState(initialShowComments);
   const [comments, setComments] = useState<CommentWithAuthor[]>([]);
   const [commentsCount, setCommentsCount] = useState(post._count?.comments || 0);
   const [commentText, setCommentText] = useState('');
   const [loadingComments, setLoadingComments] = useState(false);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [replyingTo, setReplyingTo] = useState<{ id: string; username: string } | null>(null);
+
+  React.useEffect(() => {
+    if (initialShowComments && comments.length === 0) {
+      setLoadingComments(true);
+      fetch(`/api/posts/${post.id}/comments`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setComments(data.data);
+          }
+        })
+        .catch((err) => console.error('Failed to load comments', err))
+        .finally(() => setLoadingComments(false));
+    }
+  }, [initialShowComments, post.id]);
 
   // Menu dropdown state
   const [showMenu, setShowMenu] = useState(false);

@@ -69,6 +69,7 @@ export default function SinglePostPage() {
 
       <PostCard
         post={post}
+        initialShowComments={true}
         onPostDeleted={() => router.push('/feed')}
       />
     </div>
