@@ -15,7 +15,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
 
   if (!mounted) {
     return (
-      <div className={`w-9 h-9 rounded-full bg-slate-100 dark:bg-zinc-800 ${className}`} />
+      <div className={`w-9 h-9 rounded-none border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] ${className}`} />
     );
   }
 
@@ -24,18 +24,18 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className={`relative p-2 rounded-full transition-colors hover:bg-slate-200/70 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
+      className={`relative w-9 h-9 flex items-center justify-center rounded-none border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] text-[#0E1012] dark:text-slate-100 transition-colors hover:bg-slate-50 dark:hover:bg-[#151722] focus:outline-none focus:border-[#2F4CFF] ${className}`}
       aria-label="Toggle theme"
       title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       <motion.div
         key={theme}
-        initial={{ y: -10, opacity: 0, rotate: -45 }}
+        initial={{ y: -6, opacity: 0, rotate: -30 }}
         animate={{ y: 0, opacity: 1, rotate: 0 }}
-        exit={{ y: 10, opacity: 0, rotate: 45 }}
-        transition={{ duration: 0.2 }}
+        exit={{ y: 6, opacity: 0, rotate: 30 }}
+        transition={{ duration: 0.15 }}
       >
-        {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-indigo-600" />}
+        {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#2F4CFF]" />}
       </motion.div>
     </button>
   );

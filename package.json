@@ -2,6 +2,12 @@
   "name": "prodigy_fs_05",
   "version": "1.0.0",
   "private": true,
+  "description": "Production-Ready Full-Stack Social Platform (Next.js 14, TypeScript, Tailwind CSS, Framer Motion, Prisma ORM)",
+  "author": "Sanjit Kumar <https://github.com/Sanjit-Mahato>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sanjit-Mahato/Prodigy_FS_05.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",

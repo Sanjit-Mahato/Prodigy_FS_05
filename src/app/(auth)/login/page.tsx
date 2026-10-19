@@ -70,67 +70,67 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-50 dark:bg-[#0c0e14] mesh-gradient">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-white dark:bg-[#07080A] transition-colors relative">
       <div className="absolute top-6 right-6">
         <ThemeToggle />
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
-            <Sparkles className="w-5 h-5 fill-current" />
+        <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+          <div className="w-9 h-9 rounded-none bg-[#0E1012] dark:bg-white flex items-center justify-center text-white dark:text-[#0E1012] font-mono font-bold text-sm tracking-wider">
+            K
           </div>
-          <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
-            Prodigy
+          <span className="font-sans font-bold text-xl tracking-tight text-[#0E1012] dark:text-white uppercase">
+            Kinetic
           </span>
         </Link>
-        <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        <h2 className="text-2xl font-sans font-medium text-[#0E1012] dark:text-white tracking-tight">
           Welcome back
         </h2>
-        <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-          Sign in to your account or select a 1-click testing persona below.
+        <p className="font-mono text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1.5 uppercase tracking-wider">
+          Sign in or select a 1-click verified creator account.
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="glass-panel py-8 px-6 sm:px-10 rounded-3xl shadow-2xl border border-slate-200/80 dark:border-zinc-800/80">
+        <div className="bg-white dark:bg-[#0E1012] py-8 px-6 sm:px-8 rounded-sm border border-[#E5E7EB] dark:border-[#1F2429]">
           {error && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-xs font-semibold text-rose-600 dark:text-rose-400">
+            <div className="mb-4 p-3 rounded-none bg-orange-50 dark:bg-orange-950/20 border border-[#C45A00]/40 font-mono text-xs font-semibold text-[#C45A00]">
               {error}
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">
+              <label className="block font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white mb-1.5">
                 Username or Email
               </label>
               <div className="relative">
-                <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
                 <input
                   type="text"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   placeholder="e.g. alex_r or alex@example.com"
                   required
-                  className="w-full bg-slate-100 dark:bg-zinc-800/70 border border-slate-200 dark:border-zinc-700/80 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-white dark:bg-[#07080A] border border-[#E5E7EB] dark:border-[#1F2429] rounded-none pl-10 pr-4 py-2.5 font-sans text-xs text-[#0E1012] dark:text-white placeholder-[#6B7280] focus:outline-none focus:border-[#2F4CFF]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">
+              <label className="block font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   required
-                  className="w-full bg-slate-100 dark:bg-zinc-800/70 border border-slate-200 dark:border-zinc-700/80 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-white dark:bg-[#07080A] border border-[#E5E7EB] dark:border-[#1F2429] rounded-none pl-10 pr-4 py-2.5 font-sans text-xs text-[#0E1012] dark:text-white placeholder-[#6B7280] focus:outline-none focus:border-[#2F4CFF]"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all disabled:opacity-50 mt-2"
+              className="w-full flex items-center justify-center gap-2 h-12 rounded-none bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012] font-mono text-xs font-semibold uppercase tracking-wider transition-colors disabled:opacity-50 mt-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
               <span>Sign In</span>
@@ -148,10 +148,10 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-zinc-800" />
+              <div className="w-full border-t border-[#E5E7EB] dark:border-[#1F2429]" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white dark:bg-zinc-900 px-3 text-slate-400 font-semibold tracking-wider text-[10px]">
+            <div className="relative flex justify-center font-mono text-[10px] uppercase">
+              <span className="bg-white dark:bg-[#0E1012] px-3 text-[#6B7280] font-semibold tracking-wider">
                 Or 1-Click Demo Login
               </span>
             </div>
@@ -165,14 +165,14 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => handleDemoLogin(account.username)}
                 disabled={loading}
-                className="flex items-center gap-2 p-2 rounded-xl bg-slate-100/70 dark:bg-zinc-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-slate-200/60 dark:border-zinc-700/60 transition-all text-left group"
+                className="flex items-center gap-2 p-2 rounded-none bg-slate-50 dark:bg-[#07080A] hover:border-[#2F4CFF] border border-[#E5E7EB] dark:border-[#1F2429] transition-all text-left group"
               >
                 <Avatar src={account.avatar} alt={account.name} size="xs" />
                 <div className="truncate">
-                  <p className="text-[11px] font-bold text-slate-900 dark:text-white truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                  <p className="font-sans text-[11px] font-medium text-[#0E1012] dark:text-white truncate group-hover:text-[#2F4CFF]">
                     {account.name.split(' ')[0]}
                   </p>
-                  <p className="text-[9px] text-slate-400 truncate">
+                  <p className="font-mono text-[9px] text-[#6B7280] truncate">
                     @{account.username}
                   </p>
                 </div>
@@ -181,11 +181,11 @@ export default function LoginPage() {
           </div>
 
           {/* Link to register */}
-          <p className="text-center text-xs text-slate-500 dark:text-zinc-400 mt-6">
+          <p className="text-center font-mono text-xs text-[#6B7280] mt-6">
             Don&apos;t have an account yet?{' '}
             <Link
               href="/register"
-              className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+              className="font-semibold text-[#2F4CFF] hover:underline uppercase tracking-wider ml-1"
             >
               Create Account
             </Link>

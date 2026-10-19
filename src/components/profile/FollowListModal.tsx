@@ -75,28 +75,28 @@ export function FollowListModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`@${username}`}
+      title={`@${username} Ledger`}
       maxWidth="md"
     >
       <div>
         {/* Tab Switcher */}
-        <div className="flex border-b border-slate-200 dark:border-zinc-800 mb-4">
+        <div className="flex border-b border-[#E5E7EB] dark:border-[#1F2429] mb-4">
           <button
             onClick={() => setActiveTab('followers')}
-            className={`flex-1 pb-2.5 text-xs font-bold border-b-2 transition-colors ${
+            className={`flex-1 pb-2.5 font-mono text-xs font-semibold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'followers'
-                ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400'
-                : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                ? 'border-[#2F4CFF] text-[#2F4CFF]'
+                : 'border-transparent text-[#6B7280] hover:text-[#0E1012] dark:hover:text-white'
             }`}
           >
             Followers
           </button>
           <button
             onClick={() => setActiveTab('following')}
-            className={`flex-1 pb-2.5 text-xs font-bold border-b-2 transition-colors ${
+            className={`flex-1 pb-2.5 font-mono text-xs font-semibold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'following'
-                ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400'
-                : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-white'
+                ? 'border-[#2F4CFF] text-[#2F4CFF]'
+                : 'border-transparent text-[#6B7280] hover:text-[#0E1012] dark:hover:text-white'
             }`}
           >
             Following
@@ -105,16 +105,16 @@ export function FollowListModal({
 
         {/* Users list */}
         {loading ? (
-          <div className="flex items-center justify-center py-10 text-xs text-slate-400 gap-2">
-            <Loader2 className="w-4 h-4 animate-spin text-indigo-600" />
+          <div className="flex items-center justify-center py-10 font-mono text-xs text-[#6B7280] gap-2">
+            <Loader2 className="w-4 h-4 animate-spin text-[#2F4CFF]" />
             <span>Loading {activeTab}...</span>
           </div>
         ) : users.length === 0 ? (
-          <div className="py-8 text-center text-xs text-slate-400">
-            No {activeTab} found for this user.
+          <div className="py-8 text-center font-mono text-xs text-[#6B7280]">
+            No {activeTab} indexed for this account.
           </div>
         ) : (
-          <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
+          <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
             {users.map((item) => {
               const isFollowed = followingMap[item.id];
               const isSelf = user?.id === item.id;
@@ -122,7 +122,7 @@ export function FollowListModal({
               return (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between gap-3 p-1 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition-colors"
+                  className="flex items-center justify-between gap-3 p-1.5 rounded-none hover:bg-slate-50 dark:hover:bg-[#151722] transition-colors"
                 >
                   <Link
                     href={`/${item.username}`}
@@ -131,10 +131,10 @@ export function FollowListModal({
                   >
                     <Avatar src={item.avatarUrl} alt={item.name} size="md" />
                     <div className="truncate">
-                      <p className="font-bold text-xs text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
+                      <p className="font-sans font-medium text-xs text-[#0E1012] dark:text-white group-hover:text-[#2F4CFF] transition-colors truncate">
                         {item.name}
                       </p>
-                      <p className="text-[11px] text-slate-400 truncate">
+                      <p className="font-mono text-[11px] text-[#6B7280] truncate">
                         @{item.username}
                       </p>
                     </div>
@@ -143,15 +143,15 @@ export function FollowListModal({
                   {!isSelf && user && (
                     <button
                       onClick={() => handleFollowToggle(item)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      className={`px-3 py-1.5 rounded-none font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
                         isFollowed
-                          ? 'bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
-                          : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm'
+                          ? 'bg-slate-100 dark:bg-[#151722] text-[#6B7280] border border-[#E5E7EB] dark:border-[#1F2429]'
+                          : 'bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012]'
                       }`}
                     >
                       {isFollowed ? (
                         <span className="flex items-center gap-1">
-                          <Check className="w-3 h-3" /> Following
+                          <Check className="w-3 h-3 text-[#008B6B]" /> Following
                         </span>
                       ) : (
                         <span className="flex items-center gap-1">

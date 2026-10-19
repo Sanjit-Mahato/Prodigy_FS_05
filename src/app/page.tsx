@@ -3,10 +3,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { HeroSection } from '@/components/landing/HeroSection';
+import { KineticMarquee } from '@/components/landing/KineticMarquee';
+import { CuratedVisualStream } from '@/components/landing/CuratedVisualStream';
+import { ParallaxImageReel } from '@/components/landing/ParallaxImageReel';
+import { InteractiveSandbox } from '@/components/landing/InteractiveSandbox';
+import { HyperframesShowcase } from '@/components/landing/HyperframesShowcase';
+import { ScrollShowcase } from '@/components/landing/ScrollShowcase';
 import { FeaturesSection } from '@/components/landing/FeaturesSection';
+import { ScrollTelemetryHUD } from '@/components/landing/ScrollTelemetryHUD';
 import { TopNavbar } from '@/components/layout/TopNavbar';
 import { useAuth } from '@/context/AuthContext';
-import { Sparkles, ArrowRight, Heart, Users, Compass, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Sparkles, Layers } from 'lucide-react';
 import { Avatar } from '@/components/ui/Avatar';
 
 export default function HomePage() {
@@ -40,25 +47,44 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0c0e14] mesh-gradient selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-white dark:bg-[#07080A] text-[#0E1012] dark:text-slate-100 selection:bg-[#2F4CFF] selection:text-white transition-colors duration-150 relative">
+      {/* Editorial Scroll Telemetry HUD */}
+      <ScrollTelemetryHUD />
+
+      {/* Persistent Navigation */}
       <TopNavbar />
 
       <main>
+        {/* Section 01: Hero Section with 3D Tilt & Double-Tap Heart Physics */}
         <HeroSection />
 
-        {/* 1-Click Persona Quick Launch Row */}
-        <section className="py-12 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md border-y border-slate-200/80 dark:border-zinc-800/80">
+        {/* Section 02: Infinite Kinetic Velocity Film Strip & Telemetry */}
+        <KineticMarquee />
+
+        {/* Section 03: 1-Click Interactive Persona Switcher - ITSUA Grid Layout */}
+        <section className="py-16 bg-white dark:bg-[#0E1012] border-b border-[#E5E7EB] dark:border-[#1F2429] transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                Instant Interactive Evaluation
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-2 h-2 rounded-full bg-[#008B6B]" />
+                  <span className="font-mono text-xs font-semibold tracking-wider uppercase text-[#0E1012] dark:text-white">
+                    Creator Personas
+                  </span>
+                </div>
+                <h3 className="font-sans text-xl sm:text-2xl font-medium text-[#0E1012] dark:text-white">
+                  Instant Interactive Evaluation Switcher
+                </h3>
+                <p className="font-sans text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-1">
+                  Click any creator to simulate real social interactions from their perspective.
+                </p>
+              </div>
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#2F4CFF] px-2.5 py-1 border border-[#2F4CFF]/30 bg-[#2F4CFF]/5 rounded-none self-start sm:self-auto">
+                4 Pre-seeded Personas
               </span>
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
-                Choose a Persona to Test Real Social Interactions
-              </h3>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {demoAccounts.map((account) => {
                 const isActive = user?.username === account.username;
                 return (
@@ -68,21 +94,21 @@ export default function HomePage() {
                       switchDemoUser(account.username);
                       window.location.href = '/feed';
                     }}
-                    className={`flex items-center gap-3 p-3.5 rounded-2xl border transition-all text-left group ${
+                    className={`flex items-center gap-3.5 p-4 rounded-sm border transition-all text-left group ${
                       isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/70 border-indigo-400 dark:border-indigo-600 ring-2 ring-indigo-500/30'
-                        : 'glass-panel border-slate-200/80 dark:border-zinc-800/80 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md'
+                        ? 'bg-[#2F4CFF]/5 text-[#0E1012] dark:text-white border-[#2F4CFF]'
+                        : 'bg-white dark:bg-[#07080A] border-[#E5E7EB] dark:border-[#1F2429] hover:border-[#2F4CFF]/50'
                     }`}
                   >
                     <Avatar src={account.avatar} alt={account.name} size="md" />
                     <div className="truncate flex-1">
-                      <p className="text-xs font-bold text-slate-900 dark:text-white truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                      <p className="font-sans text-base font-medium text-[#0E1012] dark:text-white truncate group-hover:text-[#2F4CFF] transition-colors">
                         {account.name}
                       </p>
-                      <p className="text-[11px] text-slate-500 dark:text-zinc-400 truncate">
+                      <p className="font-mono text-xs text-[#6B7280] dark:text-[#9CA3AF] truncate">
                         @{account.username}
                       </p>
-                      <span className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400">
+                      <span className="font-mono text-xs font-semibold text-[#2F4CFF] uppercase tracking-wider">
                         {account.role}
                       </span>
                     </div>
@@ -93,44 +119,67 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Section 04: Curated Uncompressed Visual Stream (Interactive Like, Shutter Specs, Discipline Filters) */}
+        <CuratedVisualStream />
+
+        {/* Section 05: Scroll-Driven 3-Column Parallax Image Stream */}
+        <ParallaxImageReel />
+
+        {/* Section 06: Live Interactive Post Sandbox ("One Live Thing") */}
+        <InteractiveSandbox />
+
+        {/* Section 07: HyperFrames Deterministic Render Showcase */}
+        <div id="hyperframes-showcase">
+          <HyperframesShowcase />
+        </div>
+
+        {/* Section 08: Scroll-Driven 3D Perspective Showcase */}
+        <ScrollShowcase />
+
+        {/* Section 09: Architectural 4-Pillar Features */}
         <FeaturesSection />
 
-        {/* Bottom Banner Call to Action */}
-        <section className="py-20 relative overflow-hidden">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="glass-panel rounded-3xl p-8 sm:p-12 text-center border border-indigo-200/50 dark:border-indigo-900/50 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+        {/* Section 10: Bottom Call to Action - ITSUA Stark Grid Layout */}
+        <section className="py-24 relative overflow-hidden bg-white dark:bg-[#07080A] border-t border-[#E5E7EB] dark:border-[#1F2429] transition-colors">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#E5E7EB] dark:border-[#1F2429] font-mono text-xs font-semibold tracking-wider uppercase text-[#0E1012] dark:text-white">
+              <span className="w-2 h-2 rounded-full bg-[#008B6B]" />
+              <span>Full-Stack Feed Specification</span>
+            </div>
 
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-                Ready to Experience the Social Feed?
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-300 max-w-xl mx-auto mb-8 leading-relaxed">
-                Explore real posts with photo carousels, videos, double-tap hearts, comments, and profile customization.
-              </p>
+            <h2 className="text-3xl sm:text-5xl font-sans font-medium tracking-tight text-[#0E1012] dark:text-white leading-[1.08]">
+              Ready to launch the social feed?
+            </h2>
+            <p className="font-sans text-base sm:text-lg text-[#6B7280] dark:text-[#9CA3AF] max-w-xl mx-auto leading-relaxed">
+              Explore real creator posts with multi-photo carousels, video reels, double-tap heart bursts, and profile customization.
+            </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link
-                  href="/feed"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 transition-all transform active:scale-95"
-                >
-                  <span>Launch Application Feed</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/explore"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl glass-panel text-slate-800 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 font-semibold text-sm transition-all"
-                >
-                  Explore Trending #Tags
-                </Link>
-              </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Link
+                href="/feed"
+                className="w-full sm:w-auto h-14 sm:h-16 px-8 rounded-none bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012] font-mono font-semibold text-[13px] tracking-wider uppercase inline-flex items-center justify-center gap-2.5 transition-colors group"
+              >
+                <span>Launch Application Feed</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/explore"
+                className="w-full sm:w-auto h-14 sm:h-16 px-8 rounded-none border border-[#0E1012] dark:border-[#E5E7EB] text-[#0E1012] dark:text-white font-mono font-semibold text-[13px] tracking-wider uppercase inline-flex items-center justify-center gap-2.5 hover:bg-[#0E1012]/5 dark:hover:bg-white/5 transition-colors"
+              >
+                Explore Trending #Tags
+              </Link>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200/80 dark:border-zinc-800/80 py-8 text-center text-xs text-slate-500 dark:text-zinc-400">
-        <p>Prodigy InfoTech Full Stack Internship Task 05 (Prodigy_FS_05)</p>
-        <p className="mt-1">Crafted with Next.js 14, TypeScript, Tailwind CSS, Framer Motion &amp; Prisma.</p>
+      <footer className="py-12 border-t border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#07080A] font-mono text-xs tracking-wider uppercase text-[#6B7280] dark:text-[#9CA3AF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>KINETIC CREATIVE NETWORK • PRODIGY_FS_05 SPECIFICATION</p>
+          <p>
+            NEXT.JS 14 • FRAMER MOTION • HYPERFRAMES • PRISMA ORM • ITSUA SYSTEM
+          </p>
+        </div>
       </footer>
     </div>
   );

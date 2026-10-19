@@ -53,44 +53,44 @@ export function SidebarNav({ onOpenCreateModal }: SidebarNavProps) {
   ];
 
   return (
-    <aside className="hidden md:flex flex-col justify-between w-64 lg:w-72 h-screen sticky top-0 px-4 py-6 border-r border-slate-200/80 dark:border-zinc-800/80 select-none z-30">
+    <aside className="hidden md:flex flex-col justify-between w-64 lg:w-72 h-screen sticky top-0 px-4 py-6 border-r border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#07080A] select-none z-30 transition-colors">
       <div>
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 px-3 mb-8 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 fill-current" />
+        {/* Brand Logo - ITSUA Sharp Architectural Block */}
+        <Link href="/" className="flex items-center gap-3 px-2 mb-8 group">
+          <div className="w-8 h-8 rounded-none bg-[#0E1012] dark:bg-white flex items-center justify-center text-white dark:text-[#0E1012] font-mono font-bold text-sm tracking-wider">
+            K
           </div>
           <div>
-            <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-              Prodigy
+            <span className="font-sans font-bold text-base tracking-tight text-[#0E1012] dark:text-white uppercase block leading-tight">
+              Kinetic
             </span>
-            <span className="text-[10px] block font-semibold text-slate-400 dark:text-zinc-500 tracking-wider uppercase -mt-1">
-              Social Platform
+            <span className="font-mono text-[10px] font-semibold text-[#2F4CFF] tracking-wider uppercase">
+              Creative Network
             </span>
           </div>
         </Link>
 
-        {/* Navigation Items */}
-        <nav className="space-y-1.5">
+        {/* Navigation Items - ITSUA Mono Utility Navigation */}
+        <nav className="space-y-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
             return (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`flex items-center justify-between px-4 py-3 rounded-2xl font-semibold text-sm transition-all ${
+                className={`flex items-center justify-between px-3 py-2.5 rounded-none font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
                   link.active
-                    ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold'
-                    : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/60 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-[#2F4CFF]/10 text-[#2F4CFF] border-l-2 border-[#2F4CFF]'
+                    : 'text-[#6B7280] dark:text-[#9CA3AF] hover:bg-slate-50 dark:hover:bg-[#0E1012] hover:text-[#0E1012] dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center gap-3.5">
-                  <Icon className={`w-5 h-5 ${link.active ? 'stroke-[2.5]' : 'stroke-2'}`} />
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-4 h-4 ${link.active ? 'stroke-[2.5]' : 'stroke-2'}`} />
                   <span>{link.label}</span>
                 </div>
 
                 {link.badge !== undefined && (
-                  <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-rose-500 text-white animate-pulse">
+                  <span className="px-1.5 py-0.5 text-[10px] font-mono font-semibold rounded-none bg-[#C45A00] text-white">
                     {link.badge}
                   </span>
                 )}
@@ -99,12 +99,12 @@ export function SidebarNav({ onOpenCreateModal }: SidebarNavProps) {
           })}
         </nav>
 
-        {/* Quick Post Button */}
+        {/* Quick Post Button - ITSUA Button Primary */}
         {user && onOpenCreateModal && (
           <div className="mt-6 px-1">
             <button
               onClick={onOpenCreateModal}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-lg shadow-indigo-500/25 transition-all transform active:scale-98"
+              className="w-full flex items-center justify-center gap-2 h-12 rounded-none bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012] font-mono text-xs font-semibold uppercase tracking-wider transition-colors"
             >
               <PenSquare className="w-4 h-4" />
               <span>Create Post</span>
@@ -115,15 +115,15 @@ export function SidebarNav({ onOpenCreateModal }: SidebarNavProps) {
 
       {/* User Profile Mini Card */}
       {user ? (
-        <div className="pt-4 border-t border-slate-200/80 dark:border-zinc-800/80">
-          <div className="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-zinc-800/60 transition-colors group">
-            <Link href={`/${user.username}`} className="flex items-center gap-3 flex-1 min-w-0">
+        <div className="pt-4 border-t border-[#E5E7EB] dark:border-[#1F2429]">
+          <div className="flex items-center justify-between p-2.5 rounded-sm border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] transition-colors group">
+            <Link href={`/${user.username}`} className="flex items-center gap-2.5 flex-1 min-w-0">
               <Avatar src={user.avatarUrl} alt={user.name} size="sm" showOnline />
               <div className="truncate">
-                <p className="font-bold text-xs text-slate-900 dark:text-white truncate">
+                <p className="font-sans font-medium text-xs text-[#0E1012] dark:text-white truncate">
                   {user.name}
                 </p>
-                <p className="text-[11px] text-slate-500 dark:text-zinc-400 truncate">
+                <p className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] truncate">
                   @{user.username}
                 </p>
               </div>
@@ -131,7 +131,7 @@ export function SidebarNav({ onOpenCreateModal }: SidebarNavProps) {
 
             <button
               onClick={logout}
-              className="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+              className="p-1.5 text-[#6B7280] hover:text-[#C45A00] rounded-none hover:bg-orange-50 dark:hover:bg-orange-950/20 transition-colors"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -139,10 +139,10 @@ export function SidebarNav({ onOpenCreateModal }: SidebarNavProps) {
           </div>
         </div>
       ) : (
-        <div className="pt-4 border-t border-slate-200 dark:border-zinc-800">
+        <div className="pt-4 border-t border-[#E5E7EB] dark:border-[#1F2429]">
           <Link
             href="/login"
-            className="w-full block text-center py-2.5 rounded-xl border border-indigo-500 text-indigo-600 dark:text-indigo-400 font-semibold text-xs hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
+            className="w-full block text-center py-2.5 rounded-none border border-[#0E1012] dark:border-[#E5E7EB] text-[#0E1012] dark:text-white font-mono text-xs font-semibold uppercase tracking-wider hover:bg-[#0E1012]/5 dark:hover:bg-white/5 transition-colors"
           >
             Sign In / Register
           </Link>

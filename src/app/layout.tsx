@@ -1,15 +1,27 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { AuthProvider } from '@/context/AuthContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  weight: ['400', '500', '600'],
+});
 
 export const metadata: Metadata = {
-  title: 'Prodigy Social • Next-Gen Interactive Social Platform',
+  title: 'KINETIC • High-Velocity Social Architecture',
   description:
-    'Full-stack social media application featuring rich media sharing, animated double-tap micro-interactions, explore trending topics, follow graph, and instant notifications.',
+    'Editorial engineering social platform featuring uncompressed 45MP photo carousels, 60fps video reels, double-tap spring physics, and real-time creator graph.',
 };
 
 export default function RootLayout({
@@ -18,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

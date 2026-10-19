@@ -2,112 +2,104 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  Image as ImageIcon,
-  Heart,
-  Users,
-  Compass,
-  Bell,
-  Sparkles,
-  Zap,
-  Lock,
-} from 'lucide-react';
 
-const features = [
+const architecturalPillars = [
   {
-    icon: ImageIcon,
-    title: 'Rich Media Uploads',
-    description: 'Post high-resolution images, multi-photo carousels, and crisp videos with smooth swipe and autoplay controls.',
-    color: 'from-emerald-500 to-teal-600',
-    tag: 'Media Pipeline',
+    title: 'High-Fidelity Media Pipeline',
+    description:
+      'Multi-part upload handler verifying MIME signatures and buffer integrity. Single photos, multi-image aspect carousels, and 60fps video playback with autoplay controls.',
+    badge: '20MB photos • 50MB video',
   },
   {
-    icon: Heart,
-    title: 'Double-Tap Heart Bursts',
-    description: 'Delightful micro-interactions with spring physics, floating particles, and instant optimistic UI feedback.',
-    color: 'from-rose-500 to-pink-600',
-    tag: 'Framer Motion',
+    title: 'Double-Tap Micro-Interactions',
+    description:
+      'Spring physics heart particle bursts on double-tap or button click. Optimistic UI mutations with instant counter increments and automatic rollback on error.',
+    badge: 'Framer Motion spring physics',
   },
   {
-    icon: Users,
-    title: 'Social Graph & Feeds',
-    description: 'Follow favorite creators, switch between algorithmic "For You" and personalized "Following" timelines.',
-    color: 'from-indigo-500 to-purple-600',
-    tag: 'Connections',
+    title: 'Dual Social Feed Modes',
+    description:
+      'Toggle cleanly between the global "For You" timeline and the pure "Following" feed filtered exclusively to accounts you follow. No algorithmic suppression.',
+    badge: 'Chronological & personalized',
   },
   {
-    icon: Compass,
-    title: 'Trending Hashtags & Search',
-    description: 'Explore trending tags (#nature, #design, #ai), search creators and posts, and browse Pinterest-style media grids.',
-    color: 'from-amber-500 to-orange-600',
-    tag: 'Discovery',
-  },
-  {
-    icon: Bell,
-    title: 'Real-Time Notifications',
-    description: 'Live badge counters and activity streams for likes, nested comments, mentions, and new followers.',
-    color: 'from-blue-500 to-indigo-600',
-    tag: 'Engagement',
-  },
-  {
-    icon: Zap,
-    title: '1-Click Persona Testing',
-    description: 'Instant demo switcher with pre-seeded creator profiles (Alex, Sarah, Leo, Maya) for effortless evaluation.',
-    color: 'from-purple-500 to-fuchsia-600',
-    tag: 'Dev & Grading',
+    title: 'Dynamic Discovery & Indexing',
+    description:
+      'Automated hashtag indexing (#travel, #design, #ai) and @mention resolution into clickable links. Instant keyword search across users, captions, and tags.',
+    badge: 'Relational SQLite indexes',
   },
 ];
 
 export function FeaturesSection() {
   return (
-    <section className="py-20 border-t border-slate-200/80 dark:border-zinc-800/80 relative">
+    <section className="py-24 bg-white dark:bg-[#07080A] border-b border-[#E5E7EB] dark:border-[#1F2429] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 mb-3 border border-indigo-200 dark:border-indigo-800">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Architecture &amp; Features</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Engineered for Production Performance
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-400 mt-3 leading-relaxed">
-            Every feature is crafted with clean separation of concerns, strict type-safety, and fluid animations.
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Narrative Split Headline & Core Claims */}
+          <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+            <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#E5E7EB] dark:border-[#1F2429] font-mono text-xs font-semibold tracking-wider uppercase text-[#0E1012] dark:text-white">
+              <span className="w-2 h-2 rounded-full bg-[#008B6B]" />
+              <span>Architectural Ledger</span>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
+            <h2 className="text-3xl sm:text-5xl font-sans font-medium tracking-tight text-[#0E1012] dark:text-white leading-[1.08]">
+              The social engine, built with restraint.
+            </h2>
+            <p className="font-sans text-base sm:text-lg text-[#6B7280] dark:text-[#9CA3AF] font-normal leading-relaxed">
+              Every system is engineered with clean separation of concerns: React Server Components for instant delivery, client components for spring micro-interactions, and Prisma ORM for relational integrity.
+            </p>
+
+            <div className="bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] p-6 rounded-sm space-y-4">
+              <h4 className="font-sans text-base font-medium text-[#0E1012] dark:text-white">
+                Technical Stack Guarantees
+              </h4>
+              <ul className="space-y-3 font-mono text-xs text-[#6B7280] dark:text-[#9CA3AF]">
+                <li className="flex items-center justify-between pb-2 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+                  <span className="uppercase tracking-wider">Framework</span>
+                  <span className="font-semibold text-[#0E1012] dark:text-white">Next.js 14 App Router</span>
+                </li>
+                <li className="flex items-center justify-between pb-2 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+                  <span className="uppercase tracking-wider">Data Layer</span>
+                  <span className="font-semibold text-[#0E1012] dark:text-white">Prisma + SQLite</span>
+                </li>
+                <li className="flex items-center justify-between pb-2 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+                  <span className="uppercase tracking-wider">Physics & Motion</span>
+                  <span className="font-semibold text-[#2F4CFF]">Framer Motion & HyperFrames</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="uppercase tracking-wider">Authentication</span>
+                  <span className="font-semibold text-[#0E1012] dark:text-white">Custom JWT Cookies</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right Column: Composed Narrative Pillar List - ITSUA Cards */}
+          <div className="lg:col-span-7 space-y-4">
+            {architecturalPillars.map((pillar, idx) => (
               <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                key={pillar.title}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="glass-panel rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all border border-slate-200/80 dark:border-zinc-800/80 group"
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] p-6 sm:p-8 rounded-sm space-y-3"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${feature.color} flex items-center justify-center text-white shadow-md shadow-indigo-500/10 group-hover:scale-110 transition-transform`}
-                  >
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 bg-slate-100 dark:bg-zinc-800/60 px-2.5 py-1 rounded-full">
-                    {feature.tag}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <h3 className="font-sans text-xl font-medium text-[#0E1012] dark:text-white">
+                    {pillar.title}
+                  </h3>
+                  <span className="self-start sm:self-auto font-mono text-xs font-semibold text-[#2F4CFF] bg-[#2F4CFF]/5 border border-[#2F4CFF]/20 px-2.5 py-1 rounded-none uppercase">
+                    {pillar.badge}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
-                  {feature.description}
+                <p className="font-sans text-base text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed">
+                  {pillar.description}
                 </p>
               </motion.div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

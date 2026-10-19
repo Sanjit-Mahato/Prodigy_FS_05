@@ -62,56 +62,42 @@ export default function FeedPage() {
 
   return (
     <div>
-      {/* Feed Header & Tabs */}
-      <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-200/80 dark:border-zinc-800/80">
-        <div className="flex items-center gap-1 bg-slate-200/60 dark:bg-zinc-800/60 p-1 rounded-2xl">
+      {/* Feed Header & Tabs - ITSUA Planar Architecture */}
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+        <div className="flex items-center gap-1 border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] p-1 rounded-none">
           <button
             onClick={() => setActiveTab('forYou')}
-            className={`relative flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'forYou'
-                ? 'text-indigo-600 dark:text-white'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-[#0E1012] dark:bg-white text-white dark:text-[#0E1012]'
+                : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0E1012] dark:hover:text-white'
             }`}
           >
-            {activeTab === 'forYou' && (
-              <motion.div
-                layoutId="activeTabBadge"
-                className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-xl shadow-sm"
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              />
-            )}
-            <Sparkles className="w-3.5 h-3.5 relative z-10" />
-            <span className="relative z-10">For You</span>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>For You</span>
           </button>
 
           <button
             onClick={() => setActiveTab('following')}
-            className={`relative flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none font-mono text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'following'
-                ? 'text-indigo-600 dark:text-white'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-[#0E1012] dark:bg-white text-white dark:text-[#0E1012]'
+                : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0E1012] dark:hover:text-white'
             }`}
           >
-            {activeTab === 'following' && (
-              <motion.div
-                layoutId="activeTabBadge"
-                className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-xl shadow-sm"
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              />
-            )}
-            <Users className="w-3.5 h-3.5 relative z-10" />
-            <span className="relative z-10">Following</span>
+            <Users className="w-3.5 h-3.5" />
+            <span>Following</span>
           </button>
         </div>
 
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="p-2 rounded-full text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
+          className="p-2 rounded-none border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] text-[#6B7280] hover:text-[#2F4CFF] hover:bg-slate-50 dark:hover:bg-[#151722] transition-colors"
           title="Refresh Feed"
           aria-label="Refresh Feed"
         >
-          <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin text-indigo-600' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-[#2F4CFF]' : ''}`} />
         </button>
       </div>
 
@@ -120,29 +106,29 @@ export default function FeedPage() {
 
       {/* Feed Content */}
       {loading ? (
-        <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400">
-          <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-          <p className="text-xs font-medium">Curating your personalized feed...</p>
+        <div className="py-20 flex flex-col items-center justify-center gap-3 text-[#6B7280]">
+          <Loader2 className="w-6 h-6 animate-spin text-[#2F4CFF]" />
+          <p className="font-mono text-xs uppercase tracking-wider">Syncing feed stream...</p>
         </div>
       ) : posts.length === 0 ? (
-        <div className="glass-panel rounded-3xl p-10 text-center border border-slate-200/80 dark:border-zinc-800/80">
-          <Users className="w-12 h-12 text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-800 dark:text-white">
+        <div className="bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] rounded-sm p-10 text-center">
+          <Users className="w-10 h-10 text-[#6B7280] mx-auto mb-3" />
+          <h3 className="font-sans text-base font-medium text-[#0E1012] dark:text-white">
             {activeTab === 'following'
-              ? 'No posts from people you follow yet'
-              : 'No posts available in this feed'}
+              ? 'No posts from followed creators yet'
+              : 'No posts currently indexed'}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-sm mx-auto mt-1 mb-4">
+          <p className="font-mono text-xs text-[#6B7280] max-w-sm mx-auto mt-1 mb-5">
             {activeTab === 'following'
-              ? 'Follow creators like Sarah, Alex, or Leo from the right sidebar to see their photos and updates here!'
-              : 'Be the first to share an inspiring post, photo, or video!'}
+              ? 'Follow creators from the sidebar or explore feed to see their photos and updates here.'
+              : 'Be the first to publish a post, photo, or 60fps video.'}
           </p>
           {activeTab === 'following' && (
             <button
               onClick={() => setActiveTab('forYou')}
-              className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/20"
+              className="px-5 py-2.5 rounded-none bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012] font-mono text-xs font-semibold uppercase tracking-wider transition-colors"
             >
-              Explore &quot;For You&quot; Feed
+              Explore Global Feed
             </button>
           )}
         </div>

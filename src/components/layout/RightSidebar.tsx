@@ -63,53 +63,53 @@ export function RightSidebar() {
   };
 
   return (
-    <aside className="hidden xl:block w-80 h-screen sticky top-0 px-5 py-6 border-l border-slate-200/80 dark:border-zinc-800/80 overflow-y-auto space-y-6 select-none z-30">
-      {/* Search Input Bar */}
+    <aside className="hidden xl:block w-80 h-screen sticky top-0 px-5 py-6 border-l border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#07080A] overflow-y-auto space-y-6 select-none z-30 transition-colors">
+      {/* Search Input Bar - ITSUA Rectilinear Input */}
       <form onSubmit={handleSearchSubmit} className="relative">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search tags, people, posts..."
-          className="w-full bg-slate-100 dark:bg-zinc-800/60 border border-slate-200/80 dark:border-zinc-700/80 rounded-full pl-10 pr-4 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+          placeholder="Search tags, creators, posts..."
+          className="w-full bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] rounded-none pl-10 pr-4 py-2.5 font-sans text-xs text-[#0E1012] dark:text-white placeholder-[#6B7280] focus:outline-none focus:border-[#2F4CFF]"
         />
       </form>
 
-      {/* Trending Topics Card */}
-      <div className="glass-panel rounded-3xl p-4 shadow-sm border border-slate-200/80 dark:border-zinc-800/80">
-        <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-slate-100 dark:border-zinc-800">
-          <TrendingUp className="w-4 h-4 text-indigo-500" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-            Trending For You
+      {/* Trending Topics Card - ITSUA Card */}
+      <div className="bg-white dark:bg-[#0E1012] rounded-sm p-4 border border-[#E5E7EB] dark:border-[#1F2429]">
+        <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+          <TrendingUp className="w-4 h-4 text-[#2F4CFF]" />
+          <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white">
+            Trending Tags
           </h3>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="space-y-2">
           {trending.length === 0 ? (
-            <p className="text-xs text-slate-400 py-2">No trending topics yet.</p>
+            <p className="font-mono text-xs text-[#6B7280] py-2">No trending tags indexed yet.</p>
           ) : (
             trending.slice(0, 5).map((item, index) => (
               <Link
                 key={item.id}
                 href={`/explore?tag=${item.name}`}
-                className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-zinc-800/60 transition-colors group"
+                className="flex items-center justify-between p-2 rounded-none hover:bg-slate-50 dark:hover:bg-[#151722] transition-colors group"
               >
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-slate-400">
+                    <span className="font-mono text-[10px] font-semibold text-[#6B7280]">
                       #{index + 1}
                     </span>
-                    <span className="text-xs font-bold text-slate-800 dark:text-zinc-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <span className="font-sans font-medium text-xs text-[#0E1012] dark:text-white group-hover:text-[#2F4CFF] transition-colors">
                       #{item.name}
                     </span>
                   </div>
-                  <span className="text-[10px] text-slate-400 block pl-4">
+                  <span className="font-mono text-[10px] text-[#6B7280] block pl-4">
                     {item.count} {item.count === 1 ? 'post' : 'posts'}
                   </span>
                 </div>
-                <span className="text-[10px] font-semibold text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#2F4CFF] opacity-0 group-hover:opacity-100 transition-opacity">
+                  View
                 </span>
               </Link>
             ))
@@ -117,18 +117,18 @@ export function RightSidebar() {
         </div>
       </div>
 
-      {/* Who To Follow Card */}
-      <div className="glass-panel rounded-3xl p-4 shadow-sm border border-slate-200/80 dark:border-zinc-800/80">
-        <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-slate-100 dark:border-zinc-800">
-          <Sparkles className="w-4 h-4 text-purple-500" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-            Creators to Follow
+      {/* Who To Follow Card - ITSUA Card */}
+      <div className="bg-white dark:bg-[#0E1012] rounded-sm p-4 border border-[#E5E7EB] dark:border-[#1F2429]">
+        <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-[#E5E7EB] dark:border-[#1F2429]">
+          <Sparkles className="w-4 h-4 text-[#008B6B]" />
+          <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white">
+            Featured Creators
           </h3>
         </div>
 
         <div className="space-y-3">
           {suggestedUsers.length === 0 ? (
-            <p className="text-xs text-slate-400 py-2">You are following all featured creators!</p>
+            <p className="font-mono text-xs text-[#6B7280] py-2">All creators followed in network.</p>
           ) : (
             suggestedUsers.slice(0, 4).map((sUser) => {
               const isFollowed = followingMap[sUser.id];
@@ -143,10 +143,10 @@ export function RightSidebar() {
                   >
                     <Avatar src={sUser.avatarUrl} alt={sUser.name} size="sm" />
                     <div className="truncate">
-                      <p className="font-bold text-xs text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
+                      <p className="font-sans font-medium text-xs text-[#0E1012] dark:text-white group-hover:text-[#2F4CFF] transition-colors truncate">
                         {sUser.name}
                       </p>
-                      <p className="text-[10px] text-slate-400 truncate">
+                      <p className="font-mono text-[10px] text-[#6B7280] truncate">
                         @{sUser.username}
                       </p>
                     </div>
@@ -154,21 +154,13 @@ export function RightSidebar() {
 
                   <button
                     onClick={() => handleFollowToggle(sUser.username, sUser.id)}
-                    className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                    className={`shrink-0 px-3 py-1 rounded-none font-mono text-[11px] font-semibold uppercase tracking-wider transition-all ${
                       isFollowed
-                        ? 'bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
-                        : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm'
+                        ? 'bg-slate-100 dark:bg-[#151722] text-[#6B7280] border border-[#E5E7EB] dark:border-[#1F2429]'
+                        : 'bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012]'
                     }`}
                   >
-                    {isFollowed ? (
-                      <span className="flex items-center gap-1">
-                        <Check className="w-3 h-3" /> Following
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1">
-                        <UserPlus className="w-3 h-3" /> Follow
-                      </span>
-                    )}
+                    {isFollowed ? 'Following' : 'Follow'}
                   </button>
                 </div>
               );
@@ -178,9 +170,9 @@ export function RightSidebar() {
       </div>
 
       {/* Footer Info */}
-      <div className="text-[11px] text-slate-400 dark:text-zinc-500 px-2 space-y-1">
+      <div className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] px-1 space-y-1">
         <div className="flex flex-wrap gap-x-2 gap-y-1">
-          <span>Prodigy InfoTech FS-05</span>
+          <span>Kinetic InfoTech FS-05</span>
           <span>•</span>
           <span>Terms</span>
           <span>•</span>
@@ -188,7 +180,7 @@ export function RightSidebar() {
           <span>•</span>
           <span>Guidelines</span>
         </div>
-        <p>© 2026 Prodigy Social Network</p>
+        <p>© 2026 Kinetic Creative Network</p>
       </div>
     </aside>
   );

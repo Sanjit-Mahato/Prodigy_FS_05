@@ -4,20 +4,38 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --itsua-primary: #0E1012;
+    --itsua-secondary: #2F4CFF;
+    --itsua-tertiary: #008B6B;
+    --itsua-error: #C45A00;
+    --itsua-surface: #FFFFFF;
+    --itsua-border: #E5E7EB;
+    --itsua-muted: #6B7280;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-[#0c0e14] dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200;
+    @apply bg-white text-[#0E1012] dark:bg-[#07080A] dark:text-slate-100 antialiased selection:bg-[#2F4CFF] selection:text-white transition-colors duration-150 font-sans;
     min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space), 'Space Grotesk', sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  /* Utility mono typography */
+  .font-mono-util {
+    font-family: var(--font-mono), 'IBM Plex Mono', monospace;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - sharp and architectural */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -25,29 +43,42 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-zinc-800 rounded-full hover:bg-slate-400 dark:hover:bg-zinc-700;
+  @apply bg-slate-300 dark:bg-zinc-800 hover:bg-slate-400 dark:hover:bg-zinc-700;
 }
 
-/* Glassmorphism Classes */
-.glass-panel {
-  @apply bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-200/80 dark:border-zinc-800/80;
-}
-
-.glass-dropdown {
-  @apply bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-slate-200 dark:border-zinc-800 shadow-2xl;
-}
-
-/* Glowing Mesh Orbs */
-.mesh-gradient {
+/* Planar architectural grid ground */
+.canvas-grid {
+  background-size: 32px 32px;
   background-image:
-    radial-gradient(at 10% 20%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
-    radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
-    radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.16) 0px, transparent 50%);
+    linear-gradient(to right, rgba(14, 16, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 16, 18, 0.04) 1px, transparent 1px);
 }
 
-.dark .mesh-gradient {
+.dark .canvas-grid {
+  background-size: 32px 32px;
   background-image:
-    radial-gradient(at 10% 20%, rgba(99, 102, 241, 0.22) 0px, transparent 50%),
-    radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.18) 0px, transparent 50%),
-    radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.2) 0px, transparent 50%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
+
+/* ITSUA Component Utilities */
+.itsua-btn-primary {
+  @apply h-14 sm:h-16 px-6 font-mono font-semibold text-[13px] tracking-wider uppercase bg-[#0E1012] text-white rounded-none inline-flex items-center justify-center gap-2.5 transition-all hover:bg-black active:translate-y-0.5;
+}
+
+.itsua-btn-secondary {
+  @apply h-14 sm:h-16 px-6 font-mono font-semibold text-[13px] tracking-wider uppercase bg-[#2F4CFF] text-white rounded-none inline-flex items-center justify-center gap-2.5 transition-all hover:bg-[#253dcf] active:translate-y-0.5;
+}
+
+.itsua-btn-outline {
+  @apply h-14 sm:h-16 px-6 font-mono font-semibold text-[13px] tracking-wider uppercase border border-[#0E1012] dark:border-[#E5E7EB] text-[#0E1012] dark:text-white rounded-none inline-flex items-center justify-center gap-2.5 transition-all hover:bg-[#0E1012]/5 dark:hover:bg-white/5;
+}
+
+.itsua-card {
+  @apply bg-white dark:bg-[#0E1012] text-[#0E1012] dark:text-white border border-[#E5E7EB] dark:border-[#1F2429] rounded-[4px] p-4;
+}
+
+.itsua-chip {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] text-[#0E1012] dark:text-slate-200;
+}
+

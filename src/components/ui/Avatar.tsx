@@ -44,7 +44,7 @@ export function Avatar({
   return (
     <div
       className={cn(
-        'relative inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-gradient-to-tr from-indigo-500 to-purple-600 font-semibold text-white select-none ring-2 ring-slate-200 dark:ring-zinc-800 shadow-sm',
+        'relative inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-[#E5E7EB] dark:bg-[#1F2429] font-mono font-semibold text-[#0E1012] dark:text-white select-none',
         sizeClasses[size],
         className
       )}
@@ -63,7 +63,7 @@ export function Avatar({
       )}
 
       {showOnline && (
-        <span className="absolute bottom-0 right-0 block w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
+        <span className="absolute bottom-0 right-0 block w-2.5 h-2.5 rounded-full bg-[#008B6B] border border-white dark:border-[#0E1012]" />
       )}
     </div>
   );

@@ -37,3 +37,8 @@ prisma/*.db
 prisma/*.db-journal
 dev.db
 dev.db-journal
+
+# Temporary generator and scratch artifacts
+.hyperframes-build
+.taste-skill
+Design*.md

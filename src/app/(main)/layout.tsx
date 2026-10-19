@@ -23,7 +23,7 @@ export default function MainAppLayout({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0c0e14] transition-colors selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-white dark:bg-[#07080A] transition-colors selection:bg-[#2F4CFF] selection:text-white">
       <TopNavbar />
 
       <div className="max-w-7xl mx-auto flex justify-center">
@@ -31,7 +31,7 @@ export default function MainAppLayout({
         <SidebarNav onOpenCreateModal={() => setShowCreateModal(true)} />
 
         {/* Center Main Scrollable Content */}
-        <main className="flex-1 max-w-2xl min-h-screen px-4 sm:px-6 py-6 pb-24 md:pb-12 border-slate-200/80 dark:border-zinc-800/80">
+        <main className="flex-1 max-w-2xl min-h-screen px-4 sm:px-6 py-6 pb-24 md:pb-12">
           {children}
         </main>
 
@@ -46,7 +46,7 @@ export default function MainAppLayout({
       <Modal
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}
-        title="Create New Post"
+        title="Create Post"
         maxWidth="lg"
       >
         <CreatePostBox onPostCreated={handlePostCreated} />

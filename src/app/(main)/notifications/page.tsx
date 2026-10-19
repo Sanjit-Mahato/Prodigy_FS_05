@@ -74,13 +74,13 @@ export default function NotificationsPage() {
 
   if (!user) {
     return (
-      <div className="glass-panel rounded-3xl p-10 text-center border border-slate-200/80 dark:border-zinc-800/80">
-        <Bell className="w-12 h-12 text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-        <h3 className="text-base font-bold text-slate-800 dark:text-white">
+      <div className="bg-white dark:bg-[#0E1012] rounded-sm p-10 text-center border border-[#E5E7EB] dark:border-[#1F2429]">
+        <Bell className="w-10 h-10 text-[#6B7280] mx-auto mb-3" />
+        <h3 className="font-sans text-base font-medium text-[#0E1012] dark:text-white">
           Sign In to View Notifications
         </h3>
-        <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 max-w-sm mx-auto mb-4">
-          Select one of our demo personas from the switcher above to see their real-time notification stream.
+        <p className="font-mono text-xs text-[#6B7280] mt-1.5 max-w-sm mx-auto">
+          Select a persona in the top navigation to stream real-time social events.
         </p>
       </div>
     );
@@ -94,15 +94,15 @@ export default function NotificationsPage() {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'LIKE':
-        return <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />;
+        return <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />;
       case 'COMMENT':
-        return <MessageCircle className="w-4 h-4 text-indigo-500 fill-indigo-500" />;
+        return <MessageCircle className="w-3.5 h-3.5 text-[#2F4CFF] fill-[#2F4CFF]" />;
       case 'FOLLOW':
-        return <UserPlus className="w-4 h-4 text-emerald-500" />;
+        return <UserPlus className="w-3.5 h-3.5 text-[#008B6B]" />;
       case 'MENTION':
-        return <AtSign className="w-4 h-4 text-purple-500" />;
+        return <AtSign className="w-3.5 h-3.5 text-[#2F4CFF]" />;
       default:
-        return <Sparkles className="w-4 h-4 text-amber-500" />;
+        return <Sparkles className="w-3.5 h-3.5 text-[#C45A00]" />;
     }
   };
 
@@ -123,26 +123,26 @@ export default function NotificationsPage() {
 
   return (
     <div>
-      {/* Header */}
-      <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-200/80 dark:border-zinc-800/80">
+      {/* Header - ITSUA Architectural Rule */}
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E5E7EB] dark:border-[#1F2429]">
         <div className="flex items-center gap-2">
-          <Bell className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-          <h1 className="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <Bell className="w-4 h-4 text-[#2F4CFF]" />
+          <h1 className="font-sans font-medium text-lg text-[#0E1012] dark:text-white tracking-tight">
             Activity &amp; Notifications
           </h1>
         </div>
 
         <button
           onClick={markAllAsRead}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-zinc-300 hover:bg-slate-200/70 dark:hover:bg-zinc-800 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-none border border-[#E5E7EB] dark:border-[#1F2429] font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white hover:bg-slate-50 dark:hover:bg-[#151722] transition-colors"
         >
-          <CheckCheck className="w-3.5 h-3.5 text-indigo-500" />
+          <CheckCheck className="w-3.5 h-3.5 text-[#008B6B]" />
           <span>Mark all read</span>
         </button>
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-3 no-scrollbar text-xs font-semibold">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-3 no-scrollbar font-mono text-xs font-semibold">
         {[
           { id: 'ALL', label: 'All' },
           { id: 'LIKE', label: 'Likes' },
@@ -153,10 +153,10 @@ export default function NotificationsPage() {
           <button
             key={tab.id}
             onClick={() => setFilter(tab.id as any)}
-            className={`px-3.5 py-1.5 rounded-full transition-colors shrink-0 ${
+            className={`px-3 py-1.5 rounded-none uppercase tracking-wider transition-colors shrink-0 ${
               filter === tab.id
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'bg-white dark:bg-zinc-800/80 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700/80'
+                ? 'bg-[#0E1012] dark:bg-white text-white dark:text-[#0E1012]'
+                : 'bg-white dark:bg-[#0E1012] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0E1012] dark:hover:text-white border border-[#E5E7EB] dark:border-[#1F2429]'
             }`}
           >
             {tab.label}
@@ -166,22 +166,22 @@ export default function NotificationsPage() {
 
       {/* Notification Stream */}
       {loading ? (
-        <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400">
-          <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-          <p className="text-xs font-medium">Loading notifications...</p>
+        <div className="py-20 flex flex-col items-center justify-center gap-3 text-[#6B7280]">
+          <Loader2 className="w-6 h-6 animate-spin text-[#2F4CFF]" />
+          <p className="font-mono text-xs uppercase tracking-wider">Syncing notification stream...</p>
         </div>
       ) : filteredNotifications.length === 0 ? (
-        <div className="glass-panel rounded-3xl p-10 text-center border border-slate-200/80 dark:border-zinc-800/80">
-          <Bell className="w-12 h-12 text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-800 dark:text-white">
+        <div className="bg-white dark:bg-[#0E1012] rounded-sm p-10 text-center border border-[#E5E7EB] dark:border-[#1F2429]">
+          <Bell className="w-10 h-10 text-[#6B7280] mx-auto mb-3" />
+          <h3 className="font-sans text-base font-medium text-[#0E1012] dark:text-white">
             No notifications in this category
           </h3>
-          <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-            When other creators interact with your content, you&apos;ll see updates here.
+          <p className="font-mono text-xs text-[#6B7280] mt-1.5">
+            When other creators interact with your content, records will appear here.
           </p>
         </div>
       ) : (
-        <div className="space-y-2.5">
+        <div className="space-y-2">
           {filteredNotifications.map((notification) => {
             const isUnread = !notification.read;
             const targetHref = notification.postId
@@ -193,39 +193,39 @@ export default function NotificationsPage() {
                 key={notification.id}
                 href={targetHref}
                 onClick={() => markSingleAsRead(notification.id)}
-                className={`glass-panel rounded-2xl p-4 flex items-center justify-between gap-3 transition-all hover:border-indigo-400 ${
+                className={`bg-white dark:bg-[#0E1012] rounded-sm p-3.5 flex items-center justify-between gap-3 transition-all hover:border-[#2F4CFF] border ${
                   isUnread
-                    ? 'border-indigo-300 dark:border-indigo-800/80 bg-indigo-50/30 dark:bg-indigo-950/20'
-                    : 'border-slate-200/80 dark:border-zinc-800/80'
+                    ? 'border-[#2F4CFF] bg-[#2F4CFF]/5 dark:bg-[#2F4CFF]/10'
+                    : 'border-[#E5E7EB] dark:border-[#1F2429]'
                 }`}
               >
-                <div className="flex items-center gap-3.5 min-w-0">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="relative shrink-0">
                     <Avatar
                       src={notification.actor.avatarUrl}
                       alt={notification.actor.name}
                       size="md"
                     />
-                    <div className="absolute -bottom-1 -right-1 p-1 rounded-full bg-white dark:bg-zinc-900 shadow-sm">
+                    <div className="absolute -bottom-1 -right-1 p-0.5 rounded-none bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429]">
                       {getNotificationIcon(notification.type)}
                     </div>
                   </div>
 
                   <div className="truncate">
-                    <p className="text-xs text-slate-800 dark:text-zinc-200 leading-snug">
-                      <span className="font-bold text-slate-900 dark:text-white mr-1">
+                    <p className="font-sans text-xs text-[#0E1012] dark:text-slate-200 leading-snug">
+                      <span className="font-medium text-[#0E1012] dark:text-white mr-1">
                         {notification.actor.name}
                       </span>
                       {getNotificationText(notification)}
                     </p>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
+                    <span className="font-mono text-[10px] text-[#6B7280] mt-0.5 block">
                       {formatRelativeTime(notification.createdAt)}
                     </span>
                   </div>
                 </div>
 
                 {isUnread && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#2F4CFF] shrink-0" />
                 )}
               </Link>
             );

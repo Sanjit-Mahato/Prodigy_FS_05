@@ -69,27 +69,27 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
   };
 
   return (
-    <div className="glass-panel rounded-3xl overflow-hidden mb-6 border border-slate-200/80 dark:border-zinc-800/80 shadow-sm">
+    <div className="bg-white dark:bg-[#0E1012] rounded-sm overflow-hidden mb-6 border border-[#E5E7EB] dark:border-[#1F2429] transition-colors">
       {/* Cover Banner */}
       <div
-        className="h-36 sm:h-52 w-full bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 bg-cover bg-center relative"
+        className="h-36 sm:h-48 w-full bg-[#0E1012] bg-cover bg-center relative border-b border-[#E5E7EB] dark:border-[#1F2429]"
         style={{
           backgroundImage: user.coverUrl ? `url(${user.coverUrl})` : undefined,
         }}
       >
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-[#0E1012]/30" />
       </div>
 
       {/* Main Profile Info */}
       <div className="px-5 sm:px-8 pb-6 pt-3 relative">
         {/* Avatar & Top Action Bar */}
-        <div className="flex items-end justify-between -mt-16 sm:-mt-20 mb-4">
+        <div className="flex items-end justify-between -mt-14 sm:-mt-16 mb-4">
           <div className="relative">
             <Avatar
               src={user.avatarUrl}
               alt={user.name}
               size="2xl"
-              className="ring-4 ring-white dark:ring-[#0c0e14] shadow-xl"
+              className="border-2 border-white dark:border-[#0E1012]"
             />
           </div>
 
@@ -97,7 +97,7 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
             {isSelf ? (
               <button
                 onClick={() => setShowEditModal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 dark:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-800 text-xs font-semibold text-slate-800 dark:text-zinc-200 transition-colors shadow-sm"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-none border border-[#E5E7EB] dark:border-[#1F2429] hover:bg-slate-50 dark:hover:bg-[#151722] font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white transition-colors"
               >
                 <Edit3 className="w-3.5 h-3.5" />
                 <span>Edit Profile</span>
@@ -105,15 +105,15 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
             ) : currentUser ? (
               <button
                 onClick={handleFollowToggle}
-                className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md ${
+                className={`flex items-center gap-1.5 px-5 py-2 rounded-none font-mono text-xs font-semibold uppercase tracking-wider transition-colors ${
                   isFollowing
-                    ? 'bg-slate-200 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40'
-                    : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/25'
+                    ? 'bg-slate-100 dark:bg-[#151722] text-[#6B7280] border border-[#E5E7EB] dark:border-[#1F2429]'
+                    : 'bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012]'
                 }`}
               >
                 {isFollowing ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 text-[#008B6B]" />
                     <span>Following</span>
                   </>
                 ) : (
@@ -130,25 +130,25 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
         {/* User Names & Bio */}
         <div className="space-y-2 mb-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="font-sans text-xl sm:text-2xl font-medium text-[#0E1012] dark:text-white tracking-tight">
               {user.name}
             </h1>
-            <p className="text-xs font-medium text-slate-500 dark:text-zinc-400">
+            <p className="font-mono text-xs text-[#6B7280]">
               @{user.username}
             </p>
           </div>
 
           {user.bio && (
-            <p className="text-xs sm:text-sm text-slate-800 dark:text-zinc-300 whitespace-pre-line leading-relaxed max-w-2xl">
+            <p className="font-sans text-xs sm:text-sm text-[#0E1012] dark:text-slate-200 whitespace-pre-line leading-relaxed max-w-2xl">
               {user.bio}
             </p>
           )}
 
           {/* Metadata badges: location, website, joined date */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-500 dark:text-zinc-400 pt-1">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-xs text-[#6B7280] pt-1">
             {user.location && (
               <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                <MapPin className="w-3.5 h-3.5 text-[#6B7280]" />
                 {user.location}
               </span>
             )}
@@ -158,7 +158,7 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
                 href={user.website.startsWith('http') ? user.website : `https://${user.website}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
+                className="flex items-center gap-1 text-[#2F4CFF] hover:underline"
               >
                 <LinkIcon className="w-3.5 h-3.5" />
                 {user.website.replace(/^https?:\/\//, '')}
@@ -166,39 +166,39 @@ export function ProfileHeader({ user, onUserUpdated }: ProfileHeaderProps) {
             )}
 
             <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+              <Calendar className="w-3.5 h-3.5 text-[#6B7280]" />
               Joined {formatFullDate(user.createdAt)}
             </span>
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="flex items-center gap-6 pt-3 border-t border-slate-100 dark:border-zinc-800 text-xs">
+        <div className="flex items-center gap-6 pt-3 border-t border-[#E5E7EB] dark:border-[#1F2429] font-mono text-xs">
           <div>
-            <span className="font-extrabold text-slate-900 dark:text-white text-sm mr-1">
+            <span className="font-semibold text-[#0E1012] dark:text-white text-sm mr-1.5">
               {user._count?.posts || 0}
             </span>
-            <span className="text-slate-500 dark:text-zinc-400">Posts</span>
+            <span className="text-[#6B7280] uppercase tracking-wider text-[11px]">Posts</span>
           </div>
 
           <button
             onClick={openFollowers}
-            className="hover:underline focus:outline-none"
+            className="hover:text-[#2F4CFF] focus:outline-none transition-colors"
           >
-            <span className="font-extrabold text-slate-900 dark:text-white text-sm mr-1">
+            <span className="font-semibold text-[#0E1012] dark:text-white text-sm mr-1.5">
               {followersCount}
             </span>
-            <span className="text-slate-500 dark:text-zinc-400">Followers</span>
+            <span className="text-[#6B7280] uppercase tracking-wider text-[11px]">Followers</span>
           </button>
 
           <button
             onClick={openFollowing}
-            className="hover:underline focus:outline-none"
+            className="hover:text-[#2F4CFF] focus:outline-none transition-colors"
           >
-            <span className="font-extrabold text-slate-900 dark:text-white text-sm mr-1">
+            <span className="font-semibold text-[#0E1012] dark:text-white text-sm mr-1.5">
               {user._count?.following || 0}
             </span>
-            <span className="text-slate-500 dark:text-zinc-400">Following</span>
+            <span className="text-[#6B7280] uppercase tracking-wider text-[11px]">Following</span>
           </button>
         </div>
       </div>

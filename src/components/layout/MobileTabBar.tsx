@@ -49,7 +49,7 @@ export function MobileTabBar({ onOpenCreateModal }: MobileTabBarProps) {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-t border-slate-200/80 dark:border-zinc-800/80 px-3 py-2 flex items-center justify-around shadow-lg">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0E1012] border-t border-[#E5E7EB] dark:border-[#1F2429] px-3 py-2 flex items-center justify-around transition-colors">
       {tabs.map((tab, idx) => {
         const Icon = tab.icon;
 
@@ -58,7 +58,7 @@ export function MobileTabBar({ onOpenCreateModal }: MobileTabBarProps) {
             <button
               key={idx}
               onClick={tab.action}
-              className="p-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25 active:scale-95 transition-transform"
+              className="p-2.5 rounded-none bg-[#0E1012] dark:bg-white text-white dark:text-[#0E1012] active:scale-95 transition-transform"
               aria-label="Create Post"
             >
               <Icon className="w-5 h-5" />
@@ -70,15 +70,15 @@ export function MobileTabBar({ onOpenCreateModal }: MobileTabBarProps) {
           <Link
             key={idx}
             href={tab.href!}
-            className={`relative p-2 rounded-xl transition-colors flex flex-col items-center ${
+            className={`relative p-2 rounded-none transition-colors flex flex-col items-center ${
               tab.active
-                ? 'text-indigo-600 dark:text-indigo-400 font-bold'
-                : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-white'
+                ? 'text-[#2F4CFF] font-semibold'
+                : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0E1012] dark:hover:text-white'
             }`}
           >
             <Icon className={`w-5 h-5 ${tab.active ? 'stroke-[2.5]' : 'stroke-2'}`} />
             {tab.badge !== undefined && (
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-zinc-950" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#C45A00]" />
             )}
           </Link>
         );

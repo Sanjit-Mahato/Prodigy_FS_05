@@ -185,3 +185,15 @@ npm run build
 npm start
 ```
 All routes compile statically or dynamically with zero TypeScript errors.
+
+---
+
+## 👨‍💻 Author & Contributor
+
+- **Sanjit Kumar** — [@Sanjit-Mahato](https://github.com/Sanjit-Mahato)
+
+---
+
+## 📄 License
+
+This project is created as part of the Prodigy InfoTech Full-Stack Web Development Internship (Task 05 - Prodigy_FS_05). Distributed under the MIT License.

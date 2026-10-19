@@ -1,88 +1,196 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, Heart, MessageCircle, Play, Users, Compass, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Film, Heart, MessageCircle, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { Avatar } from '@/components/ui/Avatar';
 
-export function HeroSection() {
-  return (
-    <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-32">
-      {/* Background Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-slow" />
-      <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
+const HERO_CAROUSEL_IMAGES = [
+  {
+    src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+    title: 'Alpine Sunrise over Moraine Lake',
+    caption: 'Sunrise over Moraine Lake. Double-tap to trigger the spring heart animation.',
+    tag: '#travel #nature',
+    specs: 'ISO 64 • 28mm ƒ/5.6',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    title: 'Brutalist Monolith Cantilever',
+    caption: 'Structural cantilever concrete study under dawn overcast lighting.',
+    tag: '#architecture #brutalism',
+    specs: 'ISO 100 • 24mm ƒ/2.8',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80',
+    title: 'Volumetric Rain Streets',
+    caption: 'Anamorphic cine frame captured during midnight storm in Shinjuku.',
+    tag: '#cinema #night',
+    specs: 'ISO 1600 • 50mm ƒ/1.2',
+  },
+];
 
+export function HeroSection() {
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [likes, setLikes] = useState(1842);
+  const [isLiked, setIsLiked] = useState(false);
+  const [showHeartBurst, setShowHeartBurst] = useState(false);
+  const lastTapRef = useRef<number>(0);
+
+  // 3D Perspective Hover Tilt physics
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const handleDoubleTap = () => {
+    const now = Date.now();
+    if (now - lastTapRef.current < 300) {
+      triggerLike();
+      lastTapRef.current = 0;
+    } else {
+      lastTapRef.current = now;
+    }
+  };
+
+  const triggerLike = () => {
+    setShowHeartBurst(true);
+    setTimeout(() => setShowHeartBurst(false), 900);
+    if (!isLiked) {
+      setIsLiked(true);
+      setLikes((prev) => prev + 1);
+    }
+  };
+
+  const nextPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPhotoIndex((prev) => (prev + 1) % HERO_CAROUSEL_IMAGES.length);
+  };
+
+  const prevPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPhotoIndex((prev) => (prev - 1 + HERO_CAROUSEL_IMAGES.length) % HERO_CAROUSEL_IMAGES.length);
+  };
+
+  const currentItem = HERO_CAROUSEL_IMAGES[photoIndex];
+
+  return (
+    <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-24 border-b border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#07080A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-6">
-          {/* Badge */}
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          {/* Eyebrow Mono Label - ITSUA mono-label-sm */}
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-200/80 dark:border-indigo-900/60 bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold shadow-sm"
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 px-3 py-1 border border-[#E5E7EB] dark:border-[#1F2429] bg-white dark:bg-[#0E1012] text-[#0E1012] dark:text-white font-mono text-[12px] font-semibold tracking-wider uppercase"
           >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-            <span>Prodigy InfoTech FS-05 • Next-Gen Social Experience</span>
+            <span className="w-2 h-2 rounded-full bg-[#008B6B] inline-block" />
+            <span>KINETIC • High-Velocity Social Architecture</span>
           </motion.div>
 
-          {/* Main Title */}
+          {/* Main Title - Space Grotesk headline-lg (72px / 48px), 2 lines max at all viewports */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]"
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-[#0E1012] dark:text-white leading-[1.05]"
           >
-            Connect, Create &amp; Inspire with{' '}
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-              Fluid Motion.
+            Uncompressed photos.{' '}
+            <span className="text-[#2F4CFF]">
+              Real cinema.
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - Space Grotesk body-lg (18px) */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-slate-600 dark:text-zinc-300 leading-relaxed font-normal"
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="text-base sm:text-lg text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed font-sans max-w-2xl mx-auto"
           >
-            Share high-res photos and videos, engage with double-tap heart bursts, discover trending hashtags, and follow creators in real-time. Built with Next.js 14, Framer Motion, and Prisma.
+            Publish 45MP photo carousels and 60fps video reels directly from your camera. Follow photographers and motion designers, join discussion threads, and browse work in chronological order.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Primary & Secondary Actions - ITSUA button-primary and button-secondary (0px radius, 64px height, mono-label-md) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4"
+            transition={{ duration: 0.5, delay: 0.24 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
             <Link
               href="/feed"
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 transition-all transform active:scale-95 group"
+              className="w-full sm:w-auto h-14 sm:h-16 px-8 rounded-none bg-[#0E1012] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#0E1012] font-mono font-semibold text-[13px] tracking-wider uppercase inline-flex items-center justify-center gap-2.5 transition-colors group"
             >
-              <span>Explore Live Feed</span>
+              <span>Open Feed</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <Link
-              href="/explore"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl glass-panel text-slate-800 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 font-semibold text-sm transition-all border border-slate-200 dark:border-zinc-800"
+            <a
+              href="#hyperframes-showcase"
+              className="w-full sm:w-auto h-14 sm:h-16 px-8 rounded-none bg-[#2F4CFF] hover:bg-[#253dcf] text-white font-mono font-semibold text-[13px] tracking-wider uppercase inline-flex items-center justify-center gap-2.5 transition-colors"
             >
-              <Compass className="w-4 h-4 text-indigo-500" />
-              <span>Browse Trending</span>
-            </Link>
+              <Film className="w-4 h-4" />
+              <span>Watch Animation</span>
+            </a>
           </motion.div>
         </div>
 
-        {/* Floating Mockup Showcase */}
-        <div className="relative mt-16 sm:mt-24 max-w-5xl mx-auto">
+        {/* Central Hero Exhibition Showcase with 3D Tilt & Double-Tap Heart Physics */}
+        <div className="relative mt-16 sm:mt-20 max-w-5xl mx-auto perspective-[1200px]">
           {/* Main Central Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            style={{
+              rotateX,
+              rotateY,
+              transformStyle: 'preserve-3d',
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="glass-panel rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-zinc-800/90 max-w-xl mx-auto relative z-10"
+            transition={{ duration: 0.5, delay: 0.32 }}
+            className="bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] rounded-sm p-6 sm:p-7 max-w-xl mx-auto relative z-10 select-none cursor-pointer"
+            onClick={handleDoubleTap}
           >
+            {/* Double Tap Heart Burst Animation */}
+            <AnimatePresence>
+              {showHeartBurst && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.4 }}
+                  animate={{ opacity: 1, scale: [0.4, 1.3, 1] }}
+                  exit={{ opacity: 0, scale: 1.4 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
+                >
+                  <Heart className="w-24 h-24 fill-rose-500 stroke-rose-400 drop-shadow-[0_0_24px_rgba(244,63,94,0.6)]" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <Avatar
@@ -91,91 +199,119 @@ export function HeroSection() {
                   size="md"
                 />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                  <h4 className="text-base font-medium font-sans text-[#0E1012] dark:text-white">
                     Sarah Chen
                   </h4>
-                  <p className="text-xs text-slate-500 dark:text-zinc-400">
-                    @sarah_c • Just now
+                  <p className="font-mono text-xs text-[#6B7280] dark:text-[#9CA3AF]">
+                    @sarah_c • Banff National Park
                   </p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                Trending #travel
+              <span className="px-2.5 py-1 rounded-sm border border-[#2F4CFF]/30 font-mono text-xs font-semibold text-[#2F4CFF] bg-[#2F4CFF]/5 uppercase">
+                {currentItem.tag.split(' ')[0]}
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-800 dark:text-zinc-200 mb-3 leading-relaxed">
-              Golden hour breaking through the mist over the Canadian Rockies. Double tap to feel the magic! ✨🏔️ #travel #nature @alex_r
+            <p className="font-sans text-base text-[#0E1012] dark:text-slate-200 mb-4 leading-relaxed">
+              {currentItem.caption}
             </p>
 
-            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-900 group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80"
-                alt="Canadian Rockies preview"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            {/* Interactive Photo Frame with Carousel Controls */}
+            <div className="relative aspect-[16/10] rounded-sm overflow-hidden bg-black select-none border border-[#E5E7EB] dark:border-[#1F2429] group/frame">
+              <Image
+                src={currentItem.src}
+                alt={currentItem.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 600px"
+                className="object-cover transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                <span className="text-xs text-white/90 font-medium">
-                  Swipe for carousel • 2 Photos
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-between p-4">
+                <span className="font-mono text-xs font-semibold uppercase text-white tracking-wider">
+                  {currentItem.specs}
+                </span>
+                <span className="font-mono text-[10px] font-semibold uppercase bg-[#0E1012]/80 border border-white/20 text-white px-2 py-0.5">
+                  {photoIndex + 1}/{HERO_CAROUSEL_IMAGES.length} Photos
                 </span>
               </div>
+
+              {/* Prev/Next Buttons */}
+              <button
+                onClick={prevPhoto}
+                className="absolute left-2.5 top-1/2 -translate-y-1/2 p-2 bg-[#0E1012]/80 text-white border border-white/20 hover:bg-black opacity-0 group-hover/frame:opacity-100 transition-opacity"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={nextPhoto}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 bg-[#0E1012]/80 text-white border border-white/20 hover:bg-black opacity-0 group-hover/frame:opacity-100 transition-opacity"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
 
-            <div className="flex items-center justify-between pt-3 mt-1 text-slate-600 dark:text-zinc-400 text-xs">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1.5 text-rose-500 font-bold">
-                  <Heart className="w-4 h-4 fill-rose-500" />
-                  1,842
-                </span>
+            <div className="flex items-center justify-between pt-4 text-[#6B7280] dark:text-[#9CA3AF] font-mono text-xs">
+              <div className="flex items-center gap-5">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    triggerLike();
+                  }}
+                  className={`flex items-center gap-1.5 font-semibold transition-colors ${
+                    isLiked ? 'text-rose-500' : 'hover:text-rose-500'
+                  }`}
+                >
+                  <Heart
+                    className={`w-4 h-4 ${
+                      isLiked ? 'fill-rose-500 stroke-rose-500' : ''
+                    }`}
+                  />
+                  <span>{likes.toLocaleString()}</span>
+                </button>
                 <span className="flex items-center gap-1.5 font-medium">
                   <MessageCircle className="w-4 h-4" />
                   128
                 </span>
               </div>
-              <span className="text-[11px] font-semibold text-indigo-500">
-                Interactive Preview
+              <span className="font-semibold text-[#2F4CFF] uppercase tracking-wider">
+                Double-tap to like
               </span>
             </div>
           </motion.div>
 
-          {/* Floating Left Card */}
+          {/* Context Badges */}
           <motion.div
-            initial={{ opacity: 0, x: -40, y: 20 }}
+            initial={{ opacity: 0, x: -24, y: 16 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="hidden md:block absolute -left-10 top-16 w-64 glass-panel rounded-2xl p-4 shadow-xl border border-slate-200/80 dark:border-zinc-800/80 -rotate-3 hover:rotate-0 transition-transform"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="hidden md:block absolute -left-6 top-16 w-64 bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] rounded-sm p-4 -rotate-1 hover:rotate-0 transition-transform z-20"
           >
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
-                <Sparkles className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-xs font-bold text-slate-900 dark:text-white">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#2F4CFF]" />
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white">
                 Live Interaction
               </span>
             </div>
-            <p className="text-[11px] text-slate-600 dark:text-zinc-300">
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">@alex_r</span> double-tapped your post with heart burst animation!
+            <p className="font-sans text-sm text-[#6B7280] dark:text-[#9CA3AF]">
+              <span className="font-semibold text-[#2F4CFF]">@alex_r</span> liked your photo reel.
             </p>
           </motion.div>
 
-          {/* Floating Right Card */}
           <motion.div
-            initial={{ opacity: 0, x: 40, y: 20 }}
+            initial={{ opacity: 0, x: 24, y: 16 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
-            className="hidden md:block absolute -right-8 bottom-10 w-64 glass-panel rounded-2xl p-4 shadow-xl border border-slate-200/80 dark:border-zinc-800/80 rotate-2 hover:rotate-0 transition-transform"
+            transition={{ duration: 0.5, delay: 0.48 }}
+            className="hidden md:block absolute -right-6 bottom-10 w-64 bg-white dark:bg-[#0E1012] border border-[#E5E7EB] dark:border-[#1F2429] rounded-sm p-4 rotate-1 hover:rotate-0 transition-transform z-20"
           >
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-500 flex items-center justify-center">
-                <Users className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-xs font-bold text-slate-900 dark:text-white">
-                Social Graph
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#008B6B]" />
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#0E1012] dark:text-white">
+                Network Metric
               </span>
             </div>
-            <p className="text-[11px] text-slate-600 dark:text-zinc-300">
-              <span className="font-semibold text-purple-600 dark:text-purple-400">@maya_p</span> and 3 others started following your updates.
+            <p className="font-sans text-sm text-[#6B7280] dark:text-[#9CA3AF]">
+              <span className="font-semibold text-[#008B6B]">@maya_p</span> joined your network graph.
             </p>
           </motion.div>
         </div>
